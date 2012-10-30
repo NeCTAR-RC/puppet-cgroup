@@ -43,7 +43,7 @@ class cgroup {
       owner  => root,
       group  => root,
       mode   => '0644',
-      source => 'puppet:///modules/cgroup/russell.ko';
+      source => "puppet:///modules/cgroup/${::kernelrelease}/russell.ko";
   }
 
   exec {
@@ -51,12 +51,12 @@ class cgroup {
       command     => 'depmod -a',
       subscribe   => File["/lib/modules/${::kernelrelease}/russell.ko"],
       refreshonly => true,
-      path        => ['/usr/bin', '/usr/sbin'];
+      path        => ['/usr/sbin', '/sbin'];
     'modprobe_russell':
       command     => 'modprobe russell',
       subscribe   => Exec['depmod_russell'],
       refreshonly => true,
-      path        => ['/usr/bin', '/usr/sbin'];
+      path        => ['/usr/sbin', '/sbin'];
   }
 
   common::line {
