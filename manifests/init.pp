@@ -1,4 +1,12 @@
 class cgroup {
+  # only install on 2.6 line kernels
+  case $kernelmajversion {
+    2.6: { include cgroup::oldkernel }
+  }
+
+}
+
+class cgroup::oldkernel {
 
   package {
     'cgroup-bin':
