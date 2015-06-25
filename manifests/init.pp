@@ -8,9 +8,9 @@ class cgroup {
 
 class cgroup::oldkernel {
 
-  package {
-    'cgroup-bin':
-      ensure => present;
+  package {'cgroup-bin':
+    ensure  => present,
+    require => File["/lib/modules/${::kernelrelease}/russell.ko"],
   }
 
   # There is no ensure running because it takes ages to run and this
